@@ -1,0 +1,90 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<section id="wrapper">
+    <header>
+        <div class="title-container">
+            <h1>Coding Test</h1>
+        </div>
+    </header>
+    <main class="content" id="home-content">
+        <div class="content-title-container">
+            <h2>Accounts</h2>
+        </div>
+        <section id="account-grid">
+            <section class="account-column" id="active-account-column">
+                <div class="account-container-title" id="active-account-container-title">
+                    <h3>Active</h3>
+                </div>
+                <div class="account-container active-account">
+                    <ul class="account-data-list">
+                        @{ foreach (var account in Model.Accounts.Where(x => x.AccountStatusId == 0))
+                            {
+                                <li><label>Name:</label>@account.LastName, @account.FirstName</li>
+                                <li><label>Email:</label>@account.Email</li>
+                                <li><label>Phone Number:</label>@String.Format("{0:(###)-###-####}", Convert.ToInt64(account.PhoneNumber))</li>
+                                <li><label>Amount Due:</label>@String.Format("{0:$###.##}",account.AmountDue)</li>
+                                @if (account.PaymentDueDate != null)
+                                {
+                                <li><label>Due Date:</label>@String.Format("{0:M/d/yyyy}", account.PaymentDueDate)</li>
+                                }
+                                <li>-------------------------------</li>
+                            }
+                         }
+                    </ul>
+                </div>
+            </section>
+            <section class="account-column" id="overdue-account-column">
+                <div class="account-container-title" id="overdue-account-container-title">
+                    <h3>Overdue</h3>
+                </div>
+                <div class="account-container overdue-account">
+                    <ul class="account-data-list">
+                        @{ foreach (var account in Model.Accounts.Where(x => x.AccountStatusId == 2))
+                            {
+                                <li><label>Name:</label>@account.LastName, @account.FirstName</li>
+                                <li><label>Email:</label>@account.Email</li>
+                                <li><label>Phone Number:</label>@String.Format("{0:(###)-###-####}", Convert.ToInt64(account.PhoneNumber))</li>
+                                <li><label>Amount Due:</label>@String.Format("{0:$###.##}", account.AmountDue)</li>
+                                @if (account.PaymentDueDate != null)
+                                {
+                                    <li><label>Due Date:</label>@String.Format("{0:M/d/yyyy}", account.PaymentDueDate)</li>
+                                }
+                                <li>-------------------------------</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </section>
+            <div class="account-column" id="inactive-account-column">
+                <div class="account-container-title" id="inactive-account-container-title">
+                    <h3>Inactive</h3>
+                </div>
+                <div class="account-container inactive-account">
+                    <ul class="account-data-list">
+                        @{ foreach (var account in Model.Accounts.Where(x => x.AccountStatusId == 1))
+                            {
+                                <li><label>Name:</label>@account.LastName, @account.FirstName</li>
+                                <li><label>Email:</label>@account.Email</li>
+                                <li><label>Phone Number:</label>@String.Format("{0:(###)-###-####}", Convert.ToInt64(account.PhoneNumber))</li>
+                                <li><label>Amount Due:</label>@String.Format("{0:$###.##}", account.AmountDue)</li>
+                                @if (account.PaymentDueDate != null)
+                                {
+                                    <li><label>Due Date:</label>@String.Format("{0:M/d/yyyy}", account.PaymentDueDate)</li>
+                                }
+                                <li>-------------------------------</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p class="copy">&copy;
+        <script>document.write(new Date().getFullYear())</script></p>
+    </footer>
+</section>
